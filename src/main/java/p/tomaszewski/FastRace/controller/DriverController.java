@@ -74,7 +74,7 @@ public class DriverController {
 
 
     @ResponseBody
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/drivers")
     ResponseEntity<Driver> creatDriver(@RequestBody @Valid Driver toCreate){
         Driver result = repository.save(toCreate);
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
