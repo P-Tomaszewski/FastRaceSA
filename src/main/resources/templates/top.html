@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>FastRace</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link th:href="@{/css/index.css}" rel="stylesheet"/>
+    <nav class="navbar navbar-expand-md">
+        <a class="navbar-brand" href="home.html" th:href="@{/home}">
+            <img th:src="@{/img/logo7.png}"/>
+        </a>
+        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main-navigation">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html" th:href="@{/home}">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Add data </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="addRace.html" th:href="@{/addRace}">Add race</a></li>
+                        <li><a class="dropdown-item" href="addDriver.html" th:href="@{/addDriver}">Add driver</a></li>
+                        <li><a class="dropdown-item" href="addScore.html" th:href="@{/addScore}">Add score</a></li>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="result.html" th:href="@{/result}">Result</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="top.html" th:href="@{/top}">Top3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html" th:href="@{/contact}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="deleteDriver.html" th:href="@{/deleteDriver}">Delete driver</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</head>
+<body>
+
+<main>
+    <form action="#" method="post" th:action="@{/addDriver}" th:object="${driver2}">
+        <p th:if="${#fields.hasAnyErrors()}" th:errors="*{all}"></p>
+        <h1 class='mb-3'>Top3 drivers</h1>
+        <table id="dtBasicExample" class="table" width="100%">
+            <thead>
+            <tr>
+                <th class="th-sm">Place
+                </th>
+                <th class="th-sm">Name
+                </th>
+                <th class="th-sm">Lastname
+                </th>
+                <th class="th-sm">Team
+                </th>
+                <th class="th-sm">Car
+                </th>
+                <th class="th-sm">Score
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="driver" type="p.tomaszewski.FastRace.model.Driver"*/-->
+            <dl th:each="driver : ${drivers}">
+                <dd>
+                    <tr th:if="${driverStat.count <= 3}">
+                        <!--                ${driver.lastName} ${driver.team} ${driver.car}"-->
+                        <td th:each="driver,iterStat : ${driver}" th:text="${driverStat.count}"></td>
+                        <td th:each="driver : ${driver}" th:text="${driver.firstName}"></td>
+                        <td th:each="driver : ${driver}" th:text="${driver.lastName}"></td>
+                        <td th:each="driver : ${driver}" th:text="${driver.team}"></td>
+                        <td th:each="driver : ${driver}" th:text="${driver.car}"></td>
+                        <td th:each="driver : ${driver}" th:text="${driver.getDriverRaceResultsScoreSum()}"></td>
+                    </tr>
+                </dd>
+            </dl>
+            </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+                integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+                crossorigin="anonymous">
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="../static/js/bootstrap.js" th:href="@{/static/js/bootstrap.js}"></script>
+        <script type="text/javascript" th:src="@{/js/main.js}"></script>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="footer-copyright text-center">© 2020 Copyright: P_Tomaszewski</div>
+            </div>
+        </footer>
+    </form>
+</main>
+</body>
+</html>

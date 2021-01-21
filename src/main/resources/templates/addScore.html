@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>FastRace</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link th:href="@{/css/index.css}" rel="stylesheet"/>
+    <nav class="navbar navbar-expand-md">
+        <a class="navbar-brand" href="home.html" th:href="@{/home}">
+            <img th:src="@{/img/logo7.png}"/>
+        </a>
+        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main-navigation">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html" th:href="@{/home}">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Add data </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="addRace.html" th:href="@{/addRace}">Add race</a></li>
+                        <li><a class="dropdown-item" href="addDriver.html" th:href="@{/addDriver}">Add driver</a></li>
+                        <li><a class="dropdown-item" href="addScore.html" th:href="@{/addScore}">Add score</a></li>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="result.html" th:href="@{/result}">Result</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="top.html" th:href="@{/top}">Top3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html" th:href="@{/contact}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="deleteDriver.html" th:href="@{/deleteDriver}">Delete driver</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</head>
+<!--<script th:if="${score == 1}">-->
+<!--    $(function () {-->
+<!--        $('#myModal').modal('show');-->
+<!--    });-->
+<!--</script>-->
+<body>
+
+<main>
+
+    <!--To do poprawić wyświetlanie błędu walidacji-->
+    <!--/*@thymesVar id="driverraceresult" type="p.tomaszewski.FastRace.model.DriverRaceResult"*/-->
+    <form action="#" method="post" th:action="@{/addScore}" th:object="${driverraceresult}">
+                <p th:if="${#fields.hasAnyErrors()}" th:errors="*{all}"></p>
+        <div class="container featuresRace">
+            <h1>Add Score</h1>
+            <div class="md-form">
+                <label for="race">Race</label>
+                <!--/*@thymesVar id="race" type="p.tomaszewski.FastRace.model.Race"*/-->
+                <select name="Race" id="race" class="form-control">
+                    <dl th:each="race : ${races}">
+                        <dd>
+                            <!--/*@thymesVar id="id" type="p.tomaszewski.FastRace.model.Race"*/-->
+                            <option th:each="race : ${race}" th:value="${race.id}" th:text="${race.name}"></option>
+                        </dd>
+                    </dl>
+                </select>
+            </div>
+            <div class="md-form">
+                <label for="driver">Driver</label>
+                <select name="Driver" id="driver" class="form-control">
+                    <!--                    &lt;!&ndash;/*@thymesVar id="driver" type="p.tomaszewski.FastRace.model.Driver"*/&ndash;&gt;-->
+                    <dl th:each="driver : ${drivers}">
+                        <dd>
+                            <option th:each="driver : ${driver}" th:value="${driver.id}" th:text="${driver.firstName}"></option>
+                        </dd>
+                    </dl>
+                </select>
+            </div>
+            <div class="md-form">
+                <label for="score">Score</label>
+                <input type="number" th:field="*{score}" id="score" class="form-control">
+            </div>
+
+            <button class="btn btn-outline-secondary btn-lg"
+                    onclick="">Add score
+            </button>
+        </div>
+
+        <!-- Button trigger modal -->
+<!--        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">-->
+<!--            Launch demo modal-->
+<!--        </button>-->
+
+        <!-- Modal -->
+<!--        <dl th:if="${score == 1}" >-->
+<!--            <dd>-->
+<!--        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--            <div class="modal-dialog" role="document">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                            <span aria-hidden="false">&times;</span>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        ...-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                        <button type="button" class="btn btn-primary">Save changes</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--            </dd>-->
+<!--        </dl>-->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+                integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+                crossorigin="anonymous">
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="../static/js/bootstrap.js" th:href="@{/static/js/bootstrap.js}"></script>
+        <script type="text/javascript" th:src="@{/js/main.js}"></script>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="footer-copyright text-center">© 2020 Copyright: P_Tomaszewski</div>
+            </div>
+        </footer>
+    </form>
+</main>
+</body>
+
+</html>

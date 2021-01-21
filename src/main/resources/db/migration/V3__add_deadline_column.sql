@@ -1,0 +1,1 @@
+alter table DRIVERS add column overview datetime null;
