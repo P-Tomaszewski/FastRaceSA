@@ -91,7 +91,14 @@ public class DriverRaceResultController {
 
     @ResponseBody
     @PostMapping("/addScore")
-    ResponseEntity<DriverRaceResult> createDriverRaceResult(@RequestBody @Valid DriverRaceResult toCreate) {
+    ResponseEntity<DriverRaceResult> createDriverRaceResult(@RequestBody @Valid DriverRaceResultWriteModel driverRaceResultWriteModel) {
+        DriverRaceResult toCreate = new DriverRaceResult();
+        toCreate.setScore(driverRaceResultWriteModel.getScore());
+        driverService.findById(1346).get();
+        toCreate.setDriver(driverService
+                .findById(1346).get());
+        toCreate.setRace(raceService
+                .findById(1250).get());
         DriverRaceResult result = repository.save(toCreate);
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
