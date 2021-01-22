@@ -12,9 +12,11 @@ public class DriverRaceResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int score;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "driver_id")
     private Driver driver;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "race_id")
     private Race race;

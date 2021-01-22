@@ -57,8 +57,8 @@ public class DriverResultController {
             driverResult.setDriver(currency.getDriver());
             driverResult.setDriverName(service.findById(currency.getDriver()).get().firstName);
             Driver driver = repository.findById(currency.getDriver()).get();
-//            driverRaceResultReadModelList = driver.getDriverRaceResults();
-//            driverResult.setRaceResults(driverRaceResultReadModelList);
+            driverRaceResultReadModelList = driver.getDriverRaceResults();
+            driverResult.setRaceResults(driverRaceResultReadModelList);
             model.addAttribute("resultByDriver", driverResult);
 //        }
 

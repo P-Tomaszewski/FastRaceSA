@@ -2,6 +2,8 @@ package p.tomaszewski.FastRace.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,10 +18,11 @@ import p.tomaszewski.FastRace.model.projection.DriverReadModel;
 import p.tomaszewski.FastRace.model.projection.RaceReadModel;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
-@Controller
-@RequestMapping()
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class DriverRaceResultController {
     private static final Logger logger = LoggerFactory.getLogger(DriverRaceResultController.class);
     private final DriverRaceResultRepository repository;
@@ -38,37 +41,37 @@ public class DriverRaceResultController {
     }
 
 
-    @GetMapping("/addScore")
-    String showScorePage(Model model){
-        var driverRaceResult = new DriverRaceResult();
-        model.addAttribute("driverraceresult", driverRaceResult);
-        return "addScore";
-    }
-
-    @PostMapping("/addScore")
-    String addScore(@Valid
-                   @ModelAttribute("driverraceresult") DriverRaceResultWriteModel current,
-                   BindingResult bindingResult,
-                   Model model) {
-        if (bindingResult.hasErrors()) {
-            return "addScore";
-        }
-
-        /*
-        Zamiana pobranego numeru Id na obiekt mu odpowiadający
-        RaceId -> Race
-        DriverId -> Driver
-         */
-        if(!repository.checkValueExists(current.getRace(), current.getDriver())) {
-            current.setRaceObject(raceService.findById(current.getRace()).get());
-            current.setDriverObject(driverService.findById(current.getDriver()).get());
-            service.createDriverRaceResultService(current);
-            model.addAttribute("driverraceresult", new DriverRaceResultWriteModel());
-            return "redirect:/addScore";
-        } else {
-            return "/addScore";
-        }
-    }
+//    @GetMapping("/addScore")
+//    String showScorePage(Model model){
+//        var driverRaceResult = new DriverRaceResult();
+//        model.addAttribute("driverraceresult", driverRaceResult);
+//        return "addScore";
+//    }
+//
+//    @PostMapping("/addScore")
+//    String addScore(@Valid
+//                   @ModelAttribute("driverraceresult") DriverRaceResultWriteModel current,
+//                   BindingResult bindingResult,
+//                   Model model) {
+//        if (bindingResult.hasErrors()) {
+//            return "addScore";
+//        }
+//
+//        /*
+//        Zamiana pobranego numeru Id na obiekt mu odpowiadający
+//        RaceId -> Race
+//        DriverId -> Driver
+//         */
+//        if(!repository.checkValueExists(current.getRace(), current.getDriver())) {
+//            current.setRaceObject(raceService.findById(current.getRace()).get());
+//            current.setDriverObject(driverService.findById(current.getDriver()).get());
+//            service.createDriverRaceResultService(current);
+//            model.addAttribute("driverraceresult", new DriverRaceResultWriteModel());
+//            return "redirect:/addScore";
+//        } else {
+//            return "/addScore";
+//        }
+//    }
 
 //    @PatchMapping("/{id}") //zmiana
 //    public ResponseEntity<?> toggleDriver(@PathVariable int id){ //PathVariable = id z sciezki
@@ -86,19 +89,19 @@ public class DriverRaceResultController {
 //        return "addScore";
 //    }
 
-//    @ResponseBody
-//    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    ResponseEntity<DriverRaceResult> createDriverRaceResult(@RequestBody @Valid DriverRaceResult toCreate) {
-//        DriverRaceResult result = repository.save(toCreate);
-//        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
-//    }
+    @ResponseBody
+    @PostMapping("/addScore")
+    ResponseEntity<DriverRaceResult> createDriverRaceResult(@RequestBody @Valid DriverRaceResult toCreate) {
+        DriverRaceResult result = repository.save(toCreate);
+        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
+    }
 //
-//    @ResponseBody
-//    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-//    ResponseEntity<List<DriverRaceResult>> readAllDriverRaceResult() {
-//        logger.warn("Exposing all tasks");
-//        return ResponseEntity.ok(repository.findAll());
-//    }
+    @ResponseBody
+    @GetMapping("/addScore")
+    ResponseEntity<List<DriverRaceResult>> readAllDriverRaceResult() {
+        logger.warn("Exposing all tasks");
+        return ResponseEntity.ok(repository.findAll());
+    }
 //    @ResponseBody
 //    @GetMapping("/{id}")
 //    ResponseEntity<DriverRaceResult> readDriverRaceResult(@PathVariable int id) {
