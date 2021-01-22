@@ -1,5 +1,6 @@
 package p.tomaszewski.FastRace.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import p.tomaszewski.FastRace.enums.Surface;
 
@@ -22,21 +23,22 @@ public class Race {
     private String name;
     @NotEmpty
     private String surface;
+    @NotNull
     private LocalDateTime data;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "race", orphanRemoval = true)
-    private Set<DriverRaceResult> driverRaceResults;
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "race", orphanRemoval = true)
+//    private Set<DriverRaceResult> driverRaceResults;
 
     public Race() {
     }
 
-    public Set<DriverRaceResult> getDriverRaceResults() {
-        return driverRaceResults;
-    }
-
-    public void setDriverRaceResults(Set<DriverRaceResult> driverRaceResults) {
-        this.driverRaceResults = driverRaceResults;
-    }
+//    public Set<DriverRaceResult> getDriverRaceResults() {
+//        return driverRaceResults;
+//    }
+//
+//    public void setDriverRaceResults(Set<DriverRaceResult> driverRaceResults) {
+//        this.driverRaceResults = driverRaceResults;
+//    }
 
     public int getId() {
         return id;

@@ -20,8 +20,8 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-@Controller
-@RequestMapping("/addRace")
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class RaceController {
     private static final Logger logger= LoggerFactory.getLogger(DriverController.class);
     private final RaceRepository repository;
@@ -33,34 +33,34 @@ public class RaceController {
         this.service = service;
     }
 
-    @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
-    String showRaces(Model model){
-        model.addAttribute("race", new RaceWriteModel());
-        return "addRace";
-    }
-
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    String addRace(@Valid
-                   @ModelAttribute("race") RaceWriteModel current,
-                   BindingResult bindingResult,
-                   Model model){
-        if(bindingResult.hasErrors()){
-            return "addRace";
-        }
-        service.createRace(current);
-        model.addAttribute("race", new RaceWriteModel());
-        return "addRace";
-    }
-
+//    @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
+//    String showRaces(Model model){
+//        model.addAttribute("race", new RaceWriteModel());
+//        return "addRace";
+//    }
+//
+//    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+//    String addRace(@Valid
+//                   @ModelAttribute("race") RaceWriteModel current,
+//                   BindingResult bindingResult,
+//                   Model model){
+//        if(bindingResult.hasErrors()){
+//            return "addRace";
+//        }
+//        service.createRace(current);
+//        model.addAttribute("race", new RaceWriteModel());
+//        return "addRace";
+//    }
+//
     @ResponseBody
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/races")
     ResponseEntity<Race> createRace(@RequestBody @Valid Race toCreate){
         Race result = repository.save(toCreate);
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 
     @ResponseBody
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/races")
     ResponseEntity<List<Race>> readAllRaces(){
         logger.warn("Exposing all tasks");
         return ResponseEntity.ok(repository.findAll());
