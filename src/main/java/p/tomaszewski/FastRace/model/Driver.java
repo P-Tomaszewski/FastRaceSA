@@ -22,19 +22,19 @@ public class Driver {
     @NotEmpty
     private String car;
     private LocalDateTime overview;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "driver", orphanRemoval = true)
-    private Set<DriverRaceResult> driverRaceResults;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "driver", orphanRemoval = true)
+//    private Set<DriverRaceResult> driverRaceResults;
 
     public Driver() {
     }
 
-    public Set<DriverRaceResult> getDriverRaceResults() {
-        return driverRaceResults;
-    }
-
-    public void setDriverRaceResults(Set<DriverRaceResult> driverRaceResults) {
-        this.driverRaceResults = driverRaceResults;
-    }
+//    public Set<DriverRaceResult> getDriverRaceResults() {
+//        return driverRaceResults;
+//    }
+//
+//    public void setDriverRaceResults(Set<DriverRaceResult> driverRaceResults) {
+//        this.driverRaceResults = driverRaceResults;
+//    }
 
     public LocalDateTime getOverview() {
         return overview;

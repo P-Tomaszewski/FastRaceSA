@@ -25,7 +25,7 @@ public class DriverReadModel {
         team = source.getTeam();
         car = source.getCar();
         id = source.getId();
-        driverRaceResults = source.getDriverRaceResults();
+//        driverRaceResults = source.getDriverRaceResults();
 //        overview = source.getOverview();
 //        source.getDriverRaceResults().stream()
 //                .sorted(Comparator.comparing(DriverRaceResult::getTheBestTime))
