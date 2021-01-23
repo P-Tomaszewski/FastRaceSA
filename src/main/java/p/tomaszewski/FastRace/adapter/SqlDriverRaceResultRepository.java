@@ -12,4 +12,11 @@ interface SqlDriverRaceResultRepository extends DriverRaceResultRepository, JpaR
     @Override
     @Query(nativeQuery = true, value = "select count(*) > 0 from driverraceresults where DRIVER_ID=?2 AND RACE_ID = ?1")
     boolean checkValueExists(int idRace, int idDriver);
+
+    @Override
+    @Query(nativeQuery = true, value = "select SUM(SCORE) from driverraceresults where DRIVER_ID = ?1 ")
+    Integer getScoreSumByDriverId(int idDriver);
+
+
+
 }

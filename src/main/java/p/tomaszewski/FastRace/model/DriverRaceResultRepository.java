@@ -15,5 +15,7 @@ public interface DriverRaceResultRepository {
 
     boolean checkValueExists(int idRace, int idDriver);
 
+    Integer getScoreSumByDriverId(int idDriver);
+
 }
 

@@ -40,6 +40,24 @@ public class DriverRaceResultController {
         this.driverService = driverService;
     }
 
+    @ResponseBody
+    @PostMapping("/addScore")
+    void createDriverRaceResult(@RequestBody @Valid DriverRaceResultWriteModel driverRaceResultWriteModel) {
+        if(!repository.checkValueExists(driverRaceResultWriteModel.getRace(), driverRaceResultWriteModel.getDriver())) {
+            DriverRaceResult toCreate = new DriverRaceResult();
+            toCreate.setScore(driverRaceResultWriteModel.getScore());
+            toCreate.setDriver(driverService.findById(driverRaceResultWriteModel.getDriver()).get());
+            toCreate.setRace(raceService.findById(driverRaceResultWriteModel.getRace()).get());
+            DriverRaceResult result = repository.save(toCreate);
+        }
+    }
+
+    @ResponseBody
+    @GetMapping("/addScore")
+    ResponseEntity<List<DriverRaceResult>> readAllDriverRaceResult() {
+        logger.warn("Exposing all tasks");
+        return ResponseEntity.ok(repository.findAll());
+    }
 
 //    @GetMapping("/addScore")
 //    String showScorePage(Model model){
@@ -89,24 +107,7 @@ public class DriverRaceResultController {
 //        return "addScore";
 //    }
 
-    @ResponseBody
-    @PostMapping("/addScore")
-  void createDriverRaceResult(@RequestBody @Valid DriverRaceResultWriteModel driverRaceResultWriteModel) {
-        if(!repository.checkValueExists(driverRaceResultWriteModel.getRace(), driverRaceResultWriteModel.getDriver())) {
-            DriverRaceResult toCreate = new DriverRaceResult();
-            toCreate.setScore(driverRaceResultWriteModel.getScore());
-            toCreate.setDriver(driverService.findById(driverRaceResultWriteModel.getDriver()).get());
-            toCreate.setRace(raceService.findById(driverRaceResultWriteModel.getRace()).get());
-            DriverRaceResult result = repository.save(toCreate);
-        }
-        }
 
-    @ResponseBody
-    @GetMapping("/addScore")
-    ResponseEntity<List<DriverRaceResult>> readAllDriverRaceResult() {
-        logger.warn("Exposing all tasks");
-        return ResponseEntity.ok(repository.findAll());
-    }
 //    @ResponseBody
 //    @GetMapping("/{id}")
 //    ResponseEntity<DriverRaceResult> readDriverRaceResult(@PathVariable int id) {
