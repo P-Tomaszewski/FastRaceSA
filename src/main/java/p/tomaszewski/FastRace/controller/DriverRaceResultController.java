@@ -91,18 +91,16 @@ public class DriverRaceResultController {
 
     @ResponseBody
     @PostMapping("/addScore")
-    ResponseEntity<DriverRaceResult> createDriverRaceResult(@RequestBody @Valid DriverRaceResultWriteModel driverRaceResultWriteModel) {
-        DriverRaceResult toCreate = new DriverRaceResult();
-        toCreate.setScore(driverRaceResultWriteModel.getScore());
-        driverService.findById(1346).get();
-        toCreate.setDriver(driverService
-                .findById(1346).get());
-        toCreate.setRace(raceService
-                .findById(1250).get());
-        DriverRaceResult result = repository.save(toCreate);
-        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
-    }
-//
+  void createDriverRaceResult(@RequestBody @Valid DriverRaceResultWriteModel driverRaceResultWriteModel) {
+        if(!repository.checkValueExists(driverRaceResultWriteModel.getRace(), driverRaceResultWriteModel.getDriver())) {
+            DriverRaceResult toCreate = new DriverRaceResult();
+            toCreate.setScore(driverRaceResultWriteModel.getScore());
+            toCreate.setDriver(driverService.findById(driverRaceResultWriteModel.getDriver()).get());
+            toCreate.setRace(raceService.findById(driverRaceResultWriteModel.getRace()).get());
+            DriverRaceResult result = repository.save(toCreate);
+        }
+        }
+
     @ResponseBody
     @GetMapping("/addScore")
     ResponseEntity<List<DriverRaceResult>> readAllDriverRaceResult() {
