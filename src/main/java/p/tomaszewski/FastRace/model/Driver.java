@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,16 +26,16 @@ public class Driver {
     private String car;
     private LocalDateTime overview;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "driver", orphanRemoval = true)
-    private Set<DriverRaceResult> driverRaceResults;
+    private List<DriverRaceResult> driverRaceResults;
 
     public Driver() {
     }
 
-    public Set<DriverRaceResult> getDriverRaceResults() {
+    public List<DriverRaceResult> getDriverRaceResults() {
         return driverRaceResults;
     }
 
-    public void setDriverRaceResults(Set<DriverRaceResult> driverRaceResults) {
+    public void setDriverRaceResults(List<DriverRaceResult> driverRaceResults) {
         this.driverRaceResults = driverRaceResults;
     }
 

@@ -68,14 +68,7 @@ public class RaceController {
 
 
 
-//    @ResponseBody
-//    @GetMapping("/{id}" produces = MediaType.APPLICATION_JSON_VALUE)
-//    ResponseEntity<Race> readRaces(@PathVariable int id){
-//        return repository.findById(id)
-//                .map(ResponseEntity::ok)
-//                .orElse(ResponseEntity.notFound().build());
-//    }
-
+//
 //    @ResponseBody
 //    @PutMapping("/{id}")
 //    ResponseEntity<?> updateRace(@PathVariable int id, @RequestBody @Valid Race toUpdate){ //PathVariable = id z sciezki
