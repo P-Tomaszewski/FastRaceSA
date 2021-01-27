@@ -14,6 +14,7 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+//@RequestMapping("/result")
 public class DriverResultController {
     private final DriverService service;
     private final RaceService raceService;
@@ -34,20 +35,10 @@ public class DriverResultController {
 
     //Trzeba z tym id
 
-//    @ResponseBody
-//    @GetMapping("/{id}" produces = MediaType.APPLICATION_JSON_VALUE)
-//    ResponseEntity<Race> readRaces(@PathVariable int id){
-//        return repository.findById(id)
-//                .map(ResponseEntity::ok)
-//                .orElse(ResponseEntity.notFound().build());
-//    }
 
-
-//
     @ResponseBody
-    @PostMapping("/result")
-    public List<DriverResultModel> getDriverResult(@RequestBody Integer driverId){
-        System.out.println(driverId);
+    @GetMapping(value = "/result/{driverId}")
+    public List<DriverResultModel> getDriverResult(@PathVariable("driverId") int driverId){
         Driver driver = new Driver();
         List<DriverResultModel> driverResultModelList = new ArrayList<>();
         driver = driverRepository.findById(driverId).get();
@@ -56,9 +47,28 @@ public class DriverResultController {
             DriverResultModel driverResultModel = new DriverResultModel();
             driverResultModel.setRaceName(driverRaceResults.get(i).getRace().getName());
             driverResultModel.setScore(driverRaceResults.get(i).getScore());
+            driverResultModelList.add(driverResultModel);
         }
         return driverResultModelList;
     }
+
+
+//
+//    @ResponseBody
+//    @GetMapping("/result")
+//    public List<DriverResultModel> getDriverResult(@RequestBody Integer driverId){
+//        System.out.println(driverId);
+//        Driver driver = new Driver();
+//        List<DriverResultModel> driverResultModelList = new ArrayList<>();
+//        driver = driverRepository.findById(driverId).get();
+//        List<DriverRaceResult> driverRaceResults = driver.getDriverRaceResults();
+//        for(int i = 0; i<driverRaceResults.size(); i++){
+//            DriverResultModel driverResultModel = new DriverResultModel();
+//            driverResultModel.setRaceName(driverRaceResults.get(i).getRace().getName());
+//            driverResultModel.setScore(driverRaceResults.get(i).getScore());
+//        }
+//        return driverResultModelList;
+//    }
 
 //
 //    @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
