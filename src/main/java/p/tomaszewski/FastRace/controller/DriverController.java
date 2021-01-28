@@ -2,16 +2,11 @@ package p.tomaszewski.FastRace.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import p.tomaszewski.FastRace.logic.DriverService;
 import p.tomaszewski.FastRace.model.Driver;
 import p.tomaszewski.FastRace.model.DriverRepository;
-import p.tomaszewski.FastRace.model.projection.DriverWriteModel;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -55,17 +50,15 @@ public class DriverController {
 //        return "deleteDriver";
 //    }
 //
-//    @PostMapping("/deleteDriver")
-//    public String deleteDriver(@Valid @RequestParam(value = "id", required = false) Integer id, Model model){
-//        if(id != null) {
-//            int k = id;
-//        }
-//        Driver driver = repository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-//        repository.deleteById(driver.getId());
-//        model.addAttribute("drivers", repository.findAll());
-//        return "deleteDriver";
-//    }
+    @DeleteMapping(value = "/delete/{driverId}")
+    public void deleteDriver(@PathVariable("driverId") Integer driverId){
+        if(driverId != null) {
+
+            Driver driver = repository.findById(driverId)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + driverId));
+            repository.deleteById(driver.getId());
+        }
+    }
 //
 
 

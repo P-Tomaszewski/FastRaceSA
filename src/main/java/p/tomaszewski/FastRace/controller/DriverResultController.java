@@ -33,9 +33,6 @@ public class DriverResultController {
         this.driverRepository = driverRepository;
     }
 
-    //Trzeba z tym id
-
-
     @ResponseBody
     @GetMapping(value = "/result/{driverId}")
     public List<DriverResultModel> getDriverResult(@PathVariable("driverId") int driverId){
