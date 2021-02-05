@@ -1,11 +1,9 @@
 package p.tomaszewski.FastRace.model;
 
 public class User {
-    String userName;
-    String password;
+    private String userName;
+    private String password;
 
-    public User() {
-    }
 
     public String getUserName() {
         return userName;

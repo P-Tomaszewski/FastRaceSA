@@ -74,7 +74,7 @@ public class DriverController {
     }
 
     @ResponseBody
-    @GetMapping("/drivers")
+    @RequestMapping("/drivers")
     public List<Driver> getDrivers(){
         logger.warn("Exposing all tasks");
         return repository.findAll();
