@@ -24,8 +24,8 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/drivers", "/races", "/result/*").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/delete/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/drivers", "/races", "/result/*", "/top").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/**").hasRole("ADMIN")
                 .anyRequest()
                 .fullyAuthenticated()
                 .and()
